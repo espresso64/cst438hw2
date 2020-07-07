@@ -88,11 +88,6 @@ public class CityRestControllerTest {
 	@Test
 	public void noCityInfo() throws Exception {
 		
-		// Initialized test variables (not needed?)
-		//City city = new City(1, "Test", "FOO", "Test District", 9000);
-		//given(cityService.getCityInfo("Test")).willReturn(new CityInfo(city, "Test Country", 80.0, "5:31 PM"));
-
-		// perform the test by making simulated HTTP get using URL of "/city/UnavailableCity"
 		MockHttpServletResponse response = mvc.perform(get("/api/cities/UnavailableCity"))
 				.andReturn().getResponse();
 
