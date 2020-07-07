@@ -119,7 +119,7 @@ public class CityServiceTest {
 	public void testCityMultiple() {
 		// Initialized test variables
 		
-		//All cities has the same name, but different code, district, population
+		//All cities have the same name, but different code, district, population
 		City city = new City(1, "Test City", "FOO", "Test District", 9000);
 		City city2 = new City(2, "Test City", "FOO2", "Test District2", 9001);
 		City city3 = new City(3, "Test City", "FOO3", "Test District3", 9002);
@@ -146,7 +146,7 @@ public class CityServiceTest {
 		given(cityRepository.findByName("Test City")).willReturn(cityList);
 
 		// stub calls and return data for countryRepository
-		// When given the country code of FOO, will give initialized country variable
+		// When given the country code of FOO(2-4), will give initialized country variable
 		given(countryRepository.findByCode("FOO")).willReturn(country);
 		given(countryRepository.findByCode("FOO2")).willReturn(country2);
 		given(countryRepository.findByCode("FOO3")).willReturn(country3);
@@ -157,6 +157,8 @@ public class CityServiceTest {
 		given(weatherService.getTempAndTime("Test City")).willReturn(TTInfoPack);
 
 		//Test will fail if incorrect city/country is selected by the cityService
+		//Code, country name, district, etc. will cause mismatch error
+		
 		//City service must select first on the list of identical cities
 		CityInfo testResult = cityService.getCityInfo("Test City");
 

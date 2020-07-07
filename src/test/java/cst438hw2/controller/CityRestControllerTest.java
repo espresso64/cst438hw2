@@ -38,12 +38,6 @@ public class CityRestControllerTest {
 	@MockBean
 	private CityService cityService;
 	
-	@MockBean
-	private CityRepository cityRepository;
-	
-	@MockBean
-	private CountryRepository countryRepository;
-
 	@Autowired
 	private MockMvc mvc;
 
@@ -59,6 +53,8 @@ public class CityRestControllerTest {
 	public void contextLoads() {
 	}
 
+	// References testing techniques from DemoRestApplication
+	
 	//Note: city service covers scenario of when there is more than 1 city
 	// Tests to see if valid city info is processed correctly by controller
 	@Test
@@ -66,7 +62,7 @@ public class CityRestControllerTest {
 		// Initialized test variables
 		City city = new City(1, "Test", "FOO", "Test District", 9000);
 		
-		//Testing with shorter constructor
+		//Testing with alternate constructor
 		given(cityService.getCityInfo("Test")).willReturn(new CityInfo(city, "Test Country", 80.0, "5:31 PM"));
 
 		MockHttpServletResponse response = mvc.perform(get("/api/cities/Test")).andReturn().getResponse();
