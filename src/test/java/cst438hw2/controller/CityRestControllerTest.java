@@ -56,6 +56,7 @@ public class CityRestControllerTest {
 	// References testing techniques from DemoRestApplication
 	
 	//Note: city service covers scenario of when there is more than 1 city
+	
 	// Tests to see if valid city info is processed correctly by controller
 	@Test
 	public void getCityInfo() throws Exception {
