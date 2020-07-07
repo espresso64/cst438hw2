@@ -48,11 +48,11 @@ public class CityService {
 			
 			//Time conversion
 			long timeTotal = (weatherResult.getTime() + weatherResult.getTimezone()) * 1000;
-		    Date date = new Date (timeTotal); 
-		    SimpleDateFormat simpleDate = new SimpleDateFormat("h:mm a");
-		    simpleDate.setTimeZone(TimeZone.getTimeZone("UTC"));
-		    String dateString = simpleDate.format(date);
-		    
+			Date date = new Date (timeTotal); 
+			SimpleDateFormat simpleDate = new SimpleDateFormat("h:mm a");
+			simpleDate.setTimeZone(TimeZone.getTimeZone("UTC"));
+			String dateString = simpleDate.format(date);
+
 			//Return statement that returns newly formed CityInfo
 			//Accesses added get functions in TempAndTime to get temp and time formatted
 			return new CityInfo(selectedCity, selectedCountry.getName(), 
