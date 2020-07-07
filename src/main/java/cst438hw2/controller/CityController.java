@@ -29,7 +29,7 @@ public class CityController {
 		//If city found, return queryResult HTML page
 			model.addAttribute("cityInfo", cityInfoPack);
 			return "queryResult";
-	} 
+		} 
 	}
 	
 }
