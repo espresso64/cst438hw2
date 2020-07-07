@@ -38,7 +38,7 @@ public class CityServiceTest {
 	public void contextLoads() {
 	}
 
-	// References testing techniques from DemoRestApplication
+	// References testing techniques/code from DemoRestApplication
 
 	//Tests logic of when city is found
 	@Test
@@ -52,20 +52,18 @@ public class CityServiceTest {
 		// TempAndTime object includes temperature K, unix time, timezone offset
 		TempAndTime TTInfoPack = new TempAndTime(299.817, 1594024278, 32400);
 
+		//Add city to list
 		List<City> cityList = new ArrayList<City>();
-
 		cityList.add(city);
 
-		// stub calls and return data for cityRepository
-		// When given the name, "Test City" will give initialized cityList variable
+		// When given the name, "Test City" stub will give initialized cityList variable
 		given(cityRepository.findByName("Test City")).willReturn(cityList);
 
-		// stub calls and return data for countryRepository
-		// When given the country code of FOO, will give initialized country variable
+
+		// When given the country code of FOO, stub will give initialized country variable
 		given(countryRepository.findByCode("FOO")).willReturn(country);
 
-		// stub calls and return data for weather service
-		// When given the name, "Test City", will give initialized TTInfoPack
+		// When given the name, "Test City", stub will give initialized TTInfoPack
 		given(weatherService.getTempAndTime("Test City")).willReturn(TTInfoPack);
 
 		CityInfo testResult = cityService.getCityInfo("Test City");
@@ -86,23 +84,22 @@ public class CityServiceTest {
 
 		Country country = new Country("FOO", "Test Country");
 
-		// TempAndTime object includes temperature K, unix time, timezone offset
 		TempAndTime TTInfoPack = new TempAndTime(299.817, 1594024278, 32400);
 
 		List<City> cityList = new ArrayList<City>();
 
 		cityList.add(city);
 
-		// stub calls and return data for cityRepository
-		// When given the name, "Test City" will give initialized cityList variable
+
+		// When given the name, "Test City", stub will give initialized cityList variable
 		given(cityRepository.findByName("Test City")).willReturn(cityList);
 
-		// stub calls and return data for countryRepository
-		// When given the country code of FOO, will give initialized country variable
+
+		// When given the country code of FOO, stub will give initialized country variable
 		given(countryRepository.findByCode("FOO")).willReturn(country);
 
-		// stub calls and return data for weather service
-		// When given the name, "Test City", will give initialized TTInfoPack
+
+		// When given the name, "Test City", stub will give initialized TTInfoPack
 		given(weatherService.getTempAndTime("Test City")).willReturn(TTInfoPack);
 
 		CityInfo testResult = cityService.getCityInfo("Not Test City");
@@ -158,7 +155,6 @@ public class CityServiceTest {
 
 		//Test will fail if incorrect city/country is selected by the cityService
 		//Code, country name, district, etc. will cause mismatch error
-		
 		//City service must select first on the list of identical cities
 		CityInfo testResult = cityService.getCityInfo("Test City");
 
@@ -166,9 +162,8 @@ public class CityServiceTest {
 				"5:31 PM");
 
 		// Assertions
-		// verify that result is as expected
+		// verify that result matches expected City Info
 		assertThat(testResult).isEqualTo(expectedResult);
-
 	}
 
 }

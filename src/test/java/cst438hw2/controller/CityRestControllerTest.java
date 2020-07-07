@@ -53,7 +53,7 @@ public class CityRestControllerTest {
 	public void contextLoads() {
 	}
 
-	// References testing techniques from DemoRestApplication
+	// References testing techniques/code from DemoRestApplication
 	
 	//Note: city service covers scenario of when there is more than 1 city
 	
@@ -68,7 +68,7 @@ public class CityRestControllerTest {
 
 		MockHttpServletResponse response = mvc.perform(get("/api/cities/Test")).andReturn().getResponse();
 
-		// verify that result is as expected
+		// checks to see that 200 response is given
 		assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
 
 		// convert returned data from JSON string format to City object
@@ -78,6 +78,7 @@ public class CityRestControllerTest {
 				9000, 80.0,"5:31 PM");
 
 		// Assertions
+		//checks that json result contents match expected
 		assertThat(testResult).isEqualTo(expectedResult);
 	}
 
@@ -88,7 +89,7 @@ public class CityRestControllerTest {
 		MockHttpServletResponse response = mvc.perform(get("/api/cities/UnavailableCity"))
 				.andReturn().getResponse();
 
-		// verify that result is as expected
+		// verify that result is as expected, 404 response
 		//Assertions
 		assertThat(response.getStatus()).isEqualTo(HttpStatus.NOT_FOUND.value());
 
