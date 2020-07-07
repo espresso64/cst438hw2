@@ -1,8 +1,6 @@
 package cst438hw2.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -20,17 +18,31 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import cst438hw2.domain.*;
 import cst438hw2.service.CityService;
+import cst438hw2.service.WeatherService;
 
 import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(CityRestController.class)
+
 public class CityRestControllerTest {
+	
+	@MockBean
+	private WeatherService weatherService;
 
 	@MockBean
 	private CityService cityService;
+	
+	@MockBean
+	private CityRepository cityRepository;
+	
+	@MockBean
+	private CountryRepository countryRepository;
 
 	@Autowired
 	private MockMvc mvc;
@@ -42,15 +54,53 @@ public class CityRestControllerTest {
 	public void setup() {
 		JacksonTester.initFields(this, new ObjectMapper());
 	}
-	
+
 	@Test
 	public void contextLoads() {
 	}
 
+	//Note: city service covers scenario of when there is more than 1 city
+	// Tests to see if valid city info is processed correctly by controller
 	@Test
 	public void getCityInfo() throws Exception {
+		// Initialized test variables
+		City city = new City(1, "Test", "FOO", "Test District", 9000);
 		
-		// TODO your code goes here
+		//Testing with shorter constructor
+		given(cityService.getCityInfo("Test")).willReturn(new CityInfo(city, "Test Country", 80.0, "5:31 PM"));
+
+		MockHttpServletResponse response = mvc.perform(get("/api/cities/Test")).andReturn().getResponse();
+
+		// verify that result is as expected
+		assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
+
+		// convert returned data from JSON string format to City object
+		CityInfo testResult = json.parseObject(response.getContentAsString());
+
+		CityInfo expectedResult = new CityInfo(1, "Test", "FOO", "Test Country", "Test District",
+				9000, 80.0,"5:31 PM");
+
+		// Assertions
+		assertThat(testResult).isEqualTo(expectedResult);
 	}
+
+	// Tests to see if unavailable city info is processed correctly by controller
+	@Test
+	public void noCityInfo() throws Exception {
+		
+		// Initialized test variables (not needed?)
+		//City city = new City(1, "Test", "FOO", "Test District", 9000);
+		//given(cityService.getCityInfo("Test")).willReturn(new CityInfo(city, "Test Country", 80.0, "5:31 PM"));
+
+		// perform the test by making simulated HTTP get using URL of "/city/UnavailableCity"
+		MockHttpServletResponse response = mvc.perform(get("/api/cities/UnavailableCity"))
+				.andReturn().getResponse();
+
+		// verify that result is as expected
+		//Assertions
+		assertThat(response.getStatus()).isEqualTo(HttpStatus.NOT_FOUND.value());
+
+	}
+
 
 }

@@ -17,10 +17,18 @@ public class CityController {
 	
 	@GetMapping("/cities/{city}")
 	public String getWeather(@PathVariable("city") String cityName, Model model) {
-
-		// TODO Your code goes here
-		// TODO delete the following line
-		return "";
+		
+		//Creates cityInfoPack based on cityName sent to cityService
+		CityInfo cityInfoPack = cityService.getCityInfo(cityName);
+		
+		//If city is null, ie: city not found, return null
+		if (cityInfoPack == null) {
+			return "errorPage";
+			
+		} else {
+			model.addAttribute("cityInfo", cityInfoPack);
+			return "queryResult";
 	} 
+	}
 	
 }
