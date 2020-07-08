@@ -1,9 +1,5 @@
 package cst438hw2.domain;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.TimeZone;
-
 public class TempAndTime {
 	public double temp;
 	public long time;
