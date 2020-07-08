@@ -11,6 +11,7 @@ public class CityInfo {
 	 double temp;
 	 String time;
 	 
+	 
 	 public CityInfo(City city, String countryName, double temp, String time) {
 		 this.id = city.getId();
 		 this.name = city.getName();
@@ -35,6 +36,10 @@ public class CityInfo {
 		this.time = time;
 	}
 
+	 //Added empty constructor, necessary for testing
+	 public CityInfo() {
+		 
+	 };
 
 	@Override
 	public boolean equals(Object obj) {
